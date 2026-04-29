@@ -1,0 +1,59 @@
+# ----------------------------
+# System files
+# ----------------------------
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter
+**/.ipynb_checkpoints/
+
+# Logs / outputs
+logs/
+outputs/
+Evo_1/3logs/
+*.err
+*.out
+*.log
+*.out
+wandb/
+swanlog/
+gpu_memory_log.txt
+
+# REAL DATA (not code)
+Evo_1/training_data_cache/
+Evo_1/dataset/
+Evo_1/dataset/Evo1_training_dataset/
+pretraining_data_cache/
+LIBERO/
+MetaWorld_evaluation/
+LIBERO_evaluation/
+
+# Checkpoints
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.pkl
+
+# Viz outputs
+viz_output/
+viz_parquet/
+viz_random/
+
+# Env
+.env
+.venv/
+
+# Stages
+evo1_stage1
+evo1_stage2
+
+# IDE
+.vscode/
+.idea/
+*.swp
