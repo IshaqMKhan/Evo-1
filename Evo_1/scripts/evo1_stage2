@@ -1,0 +1,51 @@
+#!/bin/bash
+#SBATCH --job-name=evo1_stage2
+#SBATCH --output=/home/qxc857/Evo-1/Evo_1/logs/evo1_stage2.%j.out
+#SBATCH --error=/home/qxc857/Evo-1/Evo_1/logs/evo1_stage2.%j.err
+#SBATCH --partition=longrun
+#SBATCH --cpus-per-task=8
+#SBATCH --gres=gpu:nvidia_h200_3g.71gb:1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=14-00:00:00
+#SBATCH --mem=24G
+
+source ~/miniforge3/etc/profile.d/conda.sh
+conda activate Evo1
+
+cd /home/qxc857/Evo-1/Evo_1
+export PYTHONUNBUFFERED=1
+
+mkdir -p /home/qxc857/Evo-1/Evo_1/checkpoints/3stage2
+mkdir -p /home/qxc857/Evo-1/Evo_1/3stage2logs
+
+accelerate launch \
+  --num_processes 1 \
+  --num_machines 1 \
+  --deepspeed_config_file scripts/ds_config.json \
+  scripts/train_3in.py \
+  --run_name Evo1_metaworld_stage2 \
+  --action_head flowmatching_3in \
+  --use_augmentation \
+  --lr 1e-5 \
+  --dropout 0.2 \
+  --weight_decay 1e-3 \
+  --batch_size 16 \
+  --image_size 448 \
+  --max_steps 80000 \
+  --log_interval 10 \
+  --ckpt_interval 2500 \
+  --warmup_steps 1000 \
+  --grad_clip_norm 1.0 \
+  --num_layers 8 \
+  --horizon 50 \
+  --finetune_vlm \
+  --finetune_action_head \
+  --disable_wandb \
+  --vlm_name OpenGVLab/InternVL3-1B \
+  --dataset_config_path /home/qxc857/Evo-1/Evo_1/dataset/config.yaml \
+  --per_action_dim 24 \
+  --state_dim 24 \
+  --save_dir /home/qxc857/Evo-1/Evo_1/checkpoints/3stage2 \
+  --resume \
+  --resume_pretrain \
+  --resume_path /home/qxc857/Evo-1/Evo_1/checkpoints/3stage1/step_best \

@@ -1,59 +1,89 @@
-# ----------------------------
+# =====================================================
 # System files
-# ----------------------------
+# =====================================================
 .DS_Store
 
+# =====================================================
 # Python cache
+# =====================================================
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
+# =====================================================
 # Jupyter
+# =====================================================
 **/.ipynb_checkpoints/
 
+# =====================================================
 # Logs / outputs
+# =====================================================
 logs/
 outputs/
-Evo_1/3logs/
 *.err
 *.out
 *.log
-*.out
 wandb/
 swanlog/
 gpu_memory_log.txt
 
-# REAL DATA (not code)
-Evo_1/training_data_cache/
-Evo_1/dataset/
-Evo_1/dataset/Evo1_training_dataset/
-pretraining_data_cache/
-LIBERO/
-MetaWorld_evaluation/
-LIBERO_evaluation/
-
-# Checkpoints
+# =====================================================
+# Checkpoints (large model files)
+# =====================================================
 checkpoints/
 *.pt
 *.pth
 *.ckpt
 *.pkl
 
-# Viz outputs
-viz_output/
-viz_parquet/
-viz_random/
-
-# Env
+# =====================================================
+# Environments
+# =====================================================
 .env
 .venv/
 
-# Stages
-evo1_stage1
-evo1_stage2
-
-# IDE
+# =====================================================
+# IDE / editors
+# =====================================================
 .vscode/
 .idea/
 *.swp
+
+# =====================================================
+# REAL DATA (IGNORE HEAVY DATASETS)
+# =====================================================
+Evo_1/training_data_cache/
+pretraining_data_cache/
+
+Evo_1/dataset/*
+!Evo_1/dataset/**/
+!Evo_1/dataset/**/*.py
+!Evo_1/dataset/**/*.yaml
+!Evo_1/dataset/**/*.yml
+
+# =====================================================
+# MetaWorld evaluation
+# =====================================================
+MetaWorld_evaluation/*
+!MetaWorld_evaluation/**/
+!MetaWorld_evaluation/**/*.py
+!MetaWorld_evaluation/**/*.json
+!MetaWorld_evaluation/**/*.jsonl
+!MetaWorld_evaluation/evo1_client
+
+# =====================================================
+# LIBERO evaluation
+# =====================================================
+LIBERO_evaluation/*
+!LIBERO_evaluation/**/
+!LIBERO_evaluation/**/*.py
+!LIBERO_evaluation/**/*.json
+!LIBERO_evaluation/**/*.jsonl
+
+# =====================================================
+# STAGE FILES (IMPORTANT FIX)
+# allows same-named files across all folders
+# =====================================================
+!**/evo1_stage1
+!**/evo1_stage2
